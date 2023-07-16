@@ -14,13 +14,7 @@
       <title>User</title>
 
   </head>
-  <style>
-      body{
-        background-color: lightblue;
-      }
-
-  </style>
-  <body>
+  <body style="background-image: url('{% static 'img/img02.jpg' %}')">
    <div class="container clearfix">
        <div id="et-secondary-menu">
            <ul class="et-social-icons">
@@ -52,21 +46,17 @@
           </button>
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="/artlist/">Home</a>
-              </li>
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Users
+                  Paints
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-
+                  <li><a class="dropdown-item" href="{% url 'about' %}">About</a></li>
                   <li><a class="dropdown-item" href="/drawing/">Drawing</a></li>
                   <li><a class="dropdown-item" href="/compitition/">Compitition</a></li>
                   <li><a class="dropdown-item" href="/request_arts/">Request a Art</a></li>
                    <li><a class="dropdown-item" href="/for_user/">All Paintings</a></li>
-                   <li><a class="dropdown-item" href="/orders/">Order</a></li>
-                  <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+
                 </ul>
               </li>
                 {% if user.is_authenticated %}
@@ -74,7 +64,30 @@
                         <a class="nav-link" href="#">Welcome {{request.user}}</a>
                     </li>
                 {% endif %}
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                     <li class="nav-item dropdown">
+                        <form class="search" action="{% url 'search' %}" method="get">
+                          <i class="fas fa-search"></i>
+                            <input name="Q" type="search" placeholder="Search" align="right" aria-label="Search">
+                            <button class="btn btn-outline-success" type="submit" style="background-color:red; color:white;">Search</button>
+                        </form>
+                     </li>
+                  </ul>
             </ul>
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                 <li class="nav-item dropdown">
+                   <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Home
+                   </a>
+                   <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <li><a class="dropdown-item" href="/artlist/">Home</a></li>
+                      <li><a class="dropdown-item" href="/profile/">Profile</a></li>
+                      <li><a class="dropdown-item" href="/mycart">Cart</a></li>
+                      <li><a class="dropdown-item" href="/orders/">Order</a></li>
+                       <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+                   </ul>
+                 </li>
+              </ul>
           </div>
         </div>
     </nav>

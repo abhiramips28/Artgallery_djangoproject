@@ -8,7 +8,7 @@ urlpatterns =[
 
     path('admin_signup/',views.Adminsignup,name='admin_signup'),
     path('adminlogin/',views.Adminlogin,name='adminlogin'),
-    path('logout/',views.Logout,name='logout'),
+
 
     path('user_nav/',views.UserHome,name='user_nav'),
     path('admin_home/',views.AdminHome,name='admin_home'),
@@ -17,8 +17,8 @@ urlpatterns =[
     path("request_arts/",views.request_arts, name="request_arts"),
 
     path('for_admin/',views.Admin,name='for_admin'),
-
-    path('search/',SearchResultsView.as_view(),name='search_results'),
+    path('about/', views.review, name='about'),
+    path('search/',SearchResultsView.as_view(),name='search'),
     path('artlist/',ArtList.as_view(), name='artlist'),
     path('artdetails/<int:pk>/',ArtDetail.as_view(), name='artdetails'),
 

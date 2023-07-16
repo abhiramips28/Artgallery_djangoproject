@@ -66,12 +66,6 @@ def Adminlogin(request):
     return render(request, "adminlogin.html")
 
 
-
-def Logout(request):
-    logout(request)
-    thank = True
-    return render(request,'base.html', {'thank':thank})
-
 def UserHome(request):
     return render(request,'user_nav.html')
 
@@ -86,7 +80,7 @@ class SearchResultsView(ListView):
     def get_queryset(self):
         query = self.request.GET.get('q')
         return Art.objects.filter(
-            Q(title=query) | Q(author=query)
+            Q(title=query) | Q(artist=query)
         )
 
 class ArtList(ListView):
@@ -268,3 +262,5 @@ class PracticeView(CreateView):
 def drawing(request):
     return render(request, 'drawing.html')
 
+def review(request):
+    return render(request, 'about.html')

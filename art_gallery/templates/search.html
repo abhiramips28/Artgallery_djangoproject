@@ -4,11 +4,102 @@
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
+<style>
+    .card-body {
+            width: 100%;
+            margin-left: -10%;
+            margin-top: 1%;
+        }
+
+        .card {
+            background-color: light;
+            height: 1050px;
+            width: 1537px;
+        }
+
+        img {
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            padding: 3px;
+            width: 350px;
+            height: 500px;
+        }
+
+        h3 {
+            font-size: 60px;
+            margin-top: 0;
+             font-weight: 100;
+              color: red;
+        }
+
+        .card-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .card-text {
+            margin-left: -50px;
+            color: #555;
+        }
+
+        .card-title {
+            font-size: 40px;
+            margin-bottom: 10px;
+             font-weight: 100;
+        }
+
+        .text-body-secondary {
+            font-size: 18px;
+            margin: 0;
+        }
+.text-body-secondary1{
+                 font-size: 22px;
+                  font-weight: 100;
+}
+
+        .card-price {
+            margin-top: 10px;
+            color: black;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .btn {
+            display: inline-block;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            user-select: none;
+            border: 1px solid transparent;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            line-height: 1.5;
+            border-radius: 0.25rem;
+            transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        .btn-primary {
+            color: white;
+            background-color: red;
+            border-color: red;
+        }
+        .btn:hover {
+            background-color: red;
+             color: white;
+        }
+        .card-title2{
+                font-weight: 100;
+        }
+          .card-available {
+            margin-top: 1px;
+        }
+</style>
 <body>
 <h3 class = "text-secondary">Search Results</h3><hr>
 {% for every in object_list %}
 <div>
-    <h3><a href="{% url 'artlist' every.pk %}">{{every.title}}</a></h3>
+    <h3><a href="{% url 'artdetails' every.pk %}">{{every.title}}</a></h3>
     <p>Artist: {{every.artist}}</p>
 </div>
 {% endfor %}

@@ -108,3 +108,23 @@ class Compitition(models.Model):
 
     def __str__(self):
         return self.name
+
+class Category(models.Model):
+    title = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.title
+
+class Profile(models.Model):
+        user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profiles', null=True, blank=True)
+        id_no = models.ForeignKey(User, on_delete=models.CASCADE, related_name='profile_ids', null=True, blank=True)
+        category = models.ForeignKey(Category, related_name='profile', on_delete=models.CASCADE)
+        name = models.CharField(max_length=200)
+        email = models.CharField(max_length=200)
+        mobile_number = models.CharField(max_length=15)
+        bio = models.TextField()
+        image_url = models.ImageField(upload_to='pics')
+        i_am_not_robot = models.BooleanField(default=False)
+
+        def __str__(self):
+            return self.name

@@ -7,6 +7,76 @@
     <link rel="stylesheet" href="{% static 'css/loginpage.css' %}">
     <title>Login</title>
 </head>
+<style>
+     body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue;
+     }
+     .container{
+            width: 60%;
+            margin-left: 20%;
+            margin-top: 5%;
+     }
+     form {
+            margin-bottom: 20px;
+            margin-left: -300px;
+            text-align: right;
+     }
+      label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        input[type="text"],
+        input[type="password"] {
+            width: 45%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .error {
+            color: red;
+            margin-top: 5px;
+        }
+
+        .btn-primary {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary:hover {
+            background-color: #cc0000;
+        }
+
+        .btn-outline-info {
+            background-color: red;
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .btn-outline-info:hover {
+            background-color: #cc0000;
+        }
+
+</style>
 <body id="bg" style="background-image:url('{% static 'image/image04.jpg' %}')">
 <div class="container">
 	<div class="row justify-content-md-center">

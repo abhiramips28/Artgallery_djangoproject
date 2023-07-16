@@ -1,0 +1,54 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Art Gallery Review</title>
+  <style>
+
+
+    h2 {
+      color: #333;
+    }
+
+    .card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 20px;
+      margin-top: 20px;
+       background-color:red;
+    }
+
+    .art-gallery {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .art-gallery p {
+      margin-bottom: 5px;
+      color: white;
+
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <form action="" method="post">
+      <div class="art-gallery">
+        <h2>Welcome to our Art Gallery!</h2>
+        <p>We are passionate about showcasing a diverse collection of artworks from talented artists around the world.</p>
+        <p>At our gallery, you'll find a vibrant display of paintings, sculptures, photographs, installations, and more. We aim to provide an immersive and inspiring environment for art enthusiasts.</p>
+        <p>Our mission is to foster creativity, provoke thought, and evoke emotions through the power of art. We believe that art has the ability to transcend boundaries and connect people from different cultures and backgrounds.</p>
+        <p>Explore our gallery and discover a wide range of artistic styles, techniques, and themes. From contemporary masterpieces to timeless classics, our curated collection caters to diverse tastes and preferences.</p>
+        <p>Join us in celebrating the beauty and expression of art. Whether you're an art collector, a casual admirer, or an aspiring artist, we invite you to immerse yourself in the world of creativity.</p>
+        <p>For any inquiries or assistance, please contact us at <a href="mailto:info@artgallery.com">info@artgallery.com</a>. We look forward to sharing the wonders of art with you.</p>
+      </div>
+    </form>
+  </div>
+</body>
+</html>
+
+
+{% endblock content %}
