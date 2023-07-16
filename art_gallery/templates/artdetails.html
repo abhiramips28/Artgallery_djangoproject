@@ -1,3 +1,8 @@
+{% extends 'user_nav.html' %}
+{% load static %}
+
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,8 +20,8 @@
         <div class="col-md-7">
           <div class="card-body">
             <h4 class="card-title">{{object.title}}</h4>
-            <p class="card-text">Artist:{{ object.artist }}</p>
-            <p class="card-text">{{ object.description }}</p>
+            <p class="card-text">Artist:{{object.artist}}</p>
+            <p class="card-text">{{object.description}}</p>
           </div>
         </div>
     </div>
@@ -25,12 +30,9 @@
 <div class="card">
      <p>Price: Rs/- {{ object.price|floatformat:2 }}</p>
      <a id="add-to-cart-btn" class="btn-btn-success"  href="{% url 'add_to_cart' art_id=arts.id %}" onclick="alert('Item added to cart')">Add to cart</a>
-      {% if object.art_available is True %}
-         <a href="{% url 'mycart' object.pk %}" class="btn btn-outline-success" role="button" style="margin-right: 1%"><font size="5">Buy</font></a>
-      {% else %}
-         <h4 class="text-danger">Out of stock...!</h4>
-      {% endif %}
+     <a href="{% url 'checkout' object.pk %}" class="btn btn-outline-success" role="button"><font size="5">Buy</font></a>
 </div>
 </center>
 </body>
 </html>
+{% endblock content %}

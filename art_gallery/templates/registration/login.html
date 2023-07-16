@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/loginpage.css' %}">
+    <title>Login</title>
+</head>
+<body id="bg" style="background-image:url('{% static 'image/image04.jpg' %}')">
+<div class="container">
+	<div class="row justify-content-md-center">
+		<div class="col-md-5 col-sm-4">
+			<div class="signin-form">
+                <h3>Sign In</h3>
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
+               <form method="post">
+                 {% csrf_token %}
+                 {{ form.as_p }}
+                 <a type="submit" href="/artlist/" class="btn btn-success">Login</a>
+               </form>
+                <a href="#" class="link">Forgot your password?</a>
+                <div class="a-divider-break"><h6>New to BookStore</h6></div>
+                <a class="btn-btn-outline-info" href="{% url 'signup' %}" role="button">Create you Bookstore account</a>
+
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

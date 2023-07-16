@@ -9,22 +9,29 @@
     <meta charset="UTF-8">
     <title>Request Arts</title>
 </head>
+<style>
+    body{
+      background-color: lightblue;
+    }
+
+</style>
 <body>
+<form>
    <div class="container my-4">
         <div class="jumbotron">
             <h1 class="display-4">Request For A Painting</h1>
-            <p class="lead">If you want to buy art which is not available in the list of arts then you can simply fill the below details. We will try to make it available in sometime.<br> <br> Thankyou and Have a nice day!!</p>
+            <p class="lead">If you want to buy paintings which is not available in the list of arts then you can simply fill the below details. We will try to make it available in sometime.<br> <br> Thankyou and Have a nice day!!</p>
         </div>
 
     <div class="container">
        <form action="/request_arts/" method="POST"> {% csrf_token %}
           <input type="text" name="art_name" id="art_name" placeholder="Art Name">
            <input type="text" name="artist" id="artist" placeholder="Art artist">
-                <button type="submit">Submit</button>
+                <button type="submit"><a href="/artlist/">Submit</a></button>
        </form>
     </div>
    </div>
-
+</form>
 </body>
 </html>
 {% endblock content %}

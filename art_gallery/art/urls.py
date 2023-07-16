@@ -5,15 +5,14 @@ from .views import SearchResultsView, ArtList, ArtDetail, ArtCheckoutView, Payme
 
 urlpatterns =[
     path('',views.base,name='base'),
-    path('signup/', views.Usersignup, name="signup"),
-    path('userlogin/', views.User_login, name="userlogin"),
+
     path('admin_signup/',views.Adminsignup,name='admin_signup'),
     path('adminlogin/',views.Adminlogin,name='adminlogin'),
     path('logout/',views.Logout,name='logout'),
 
     path('user_nav/',views.UserHome,name='user_nav'),
     path('admin_home/',views.AdminHome,name='admin_home'),
-    path('orders/',views.orders_list, name='orders'),
+    path('orders/<int:pk>/',views.orders_list, name='orders'),
     path("for_user/",views.User, name="for_user"),
     path("request_arts/",views.request_arts, name="request_arts"),
 
@@ -29,11 +28,11 @@ urlpatterns =[
 
     path("customerlist/",views.user_list, name="customerlist"),
     path("see_requested_arts/",views.see_requested_arts, name="see_requested_arts"),
-    path("delete_requested_arts/delete_<int:myid>/",views.delete_requested_arts, name="delete_requested_arts"),
-    path("customerlist/orders/<int:myid>/",views.orders_list, name="orders_list"),
-    path("customerlist/orders/<int:myid>/data/",views.data_view, name="data"),
+    path("delete_requested_arts/delete_<int:pk>/",views.delete_requested_arts, name="delete_requested_arts"),
+    path("customerlist/orders/<int:pk>/",views.orders_list, name="orders_list"),
+    path("customerlist/orders/<int:pk>/data/",views.data_view, name="data"),
 
-    path('checkout/<int:pk>/', ArtCheckoutView.as_view, name='checkout'),
+    path('buy/<int:pk>/', ArtCheckoutView.as_view(), name='checkout'),
     path('complete/<int:pk/', PaymentComplete, name='complete'),
 
     path('compitition/', Compititionlist.as_view(), name='compitition'),

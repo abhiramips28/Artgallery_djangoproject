@@ -1,8 +1,8 @@
 {% extends 'user_nav.html' %}
+{% load static %}
+
 
 {% block content %}
-
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,6 +15,52 @@
        body {
           background-color: lightblue;
        }
+       .col-12,
+       .col-sm-6,
+       .col-md-4,
+       .col-lg-2 {
+            margin-bottom: 20px;
+            margin-right: 70px;
+            margin-left: 0px;
+       }
+
+       .card{
+           width: 240px;
+           height: 590px;
+           margin-bottom: 20px;
+           overflow: hidden;
+       }
+
+        .card-content {
+            padding: 10px;
+        }
+
+       .card img{
+           transition: scale 400ms;
+       }
+       img.card-img-top {
+            border: 1px red;
+            border-radius: 4px;
+            padding: 2px;
+            width: 220px;
+            height: 300px;
+       }
+
+        .card:hover img{
+            scale: 120%;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+       .card{
+           border:1px solid black;
+       }
+       .card-text {
+            margin-top: 0px;
+            text-color: black;
+
+
      </style>
 </head>
 
@@ -22,23 +68,19 @@
  <div class="container">
      <div class="row">
          {% for art in arts %}
-         <div class="col row-cols-4 g-3">
-            <div class="col">
-                <div class="card h-100">
-
-                   <div class="card" style="width: 20rem;">
+         <div class="col-12 col-sm-6 col-md-4 col-lg-2">
+             <div class="card" style="width: 20rem;">
+                   <div class="card-content">
                      <img src="{{ art.image_url }}" class="card-img-top" alt="....">
                       <div class="card-body">
                         <h5 class="card-title"><font size="5">{{art.title}}</font></h5>
                         <p class="card-text">{{art.category}}</p>
                         <p class="card-text">₹ {{art.price}}/-</p>
                         <p><small class="text-muted">Free Delivery</small></p><br>
-                        <a href="{% url 'artdetails' art.id %}" class="btn btn-primary">View</a>
+                        <a href="{% url 'artdetails' art.id %}" class="btn btn-primary" style=" padding: 5px 10px; border-radius: 4px; cursor: pointer;">View</a>
                       </div>
                    </div>
-                </div>
-              </div>
-            </div>
+             </div>
          </div>
         {% endfor %}
      </div>

@@ -1,3 +1,8 @@
+{% extends 'user_nav.html' %}
+{% load static %}
+
+
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,10 +14,10 @@
 <body>
 
 <li class="nav-item">
-  <a class="nav-link btn btn-light" href="/checkout/" aria-current="page" >Cart
+  <a class="nav-link btn btn-light" href="/cart/" aria-current="page" >Cart
     (<span id="cart">0</span>)</a>
 </li>
-{% endblock %}
+
 
 
 {% block body %}
@@ -38,21 +43,22 @@
         </thead>
         {% for art in arts %}
         <tr>
-          <td id="namepr{{art.id}}">{{art.book_name}}</td>
+          <td id="namepr{{art.id}}">{{art.title}}</td>
           <td id="artistpr{{art.id}}">{{art.artist}}</td>
           <td id="categorypr{{art.id}}">{{art.category}}</td>
           <td id="descriptionpr{{art.id}}">{{art.description}}</td>
           <td> ₹<span id="pricepr{{art.id}}">{{art.price}}</span></td>
           <td id="stock{{art.id}}">{{art.stock}}</td>
           <td class="quantity" id="divpr{{art.id}}"></td>
-          <td><button id="pr{{art.id}}" class="btn btn-info cart"><a href="/checkout/" >Buy Now</a></button></td>
+          <td><button id="pr{{art.id}}" class="btn btn-info cart"><a href="/cart/" >Buy Now</a></button></td>
         </tr>
         {% endfor %}
       </table>
     </div>
   </div>
 </div>
-
+{% endblock %}
 
 </body>
 </html>
+{% endblock content %}

@@ -17,54 +17,6 @@ def base(request):
     return render(request,'base.html')
 
 
-def Usersignup(request):
-    if request.user.is_authenticated:
-        return redirect('/')
-    else:
-        if request.method == "POST":
-            first_name = request.POST['first_name']
-            last_name = request.POST['last_name']
-            phone_number = request.POST['phone_number']
-            email = request.POST['email']
-            username = request.POST['username']
-            password1 = request.POST['password1']
-            password2 = request.POST['password2']
-
-            if len(username) > 15:
-                messages.info(request, "Username must be under 15 characters.")
-                return redirect('/signup')
-            if not username.isalnum():
-                messages.info(request, "Username must contain only letters and numbers.")
-                return redirect('/signup')
-            if password1 != password2:
-                messages.info(request, "Passwords do not match.")
-                return redirect('/signup')
-
-            user = User.objects.create_user(username, email, password1)
-            user.first_name = first_name
-            user.last_name = last_name
-            user.phone_number = phone_number
-            user.save()
-            return render(request, 'userlogin.html')
-    return render(request, "signup.html")
-
-def User_login(request):
-    if request.user.is_authenticated:
-        return redirect('/')
-    else:
-        if request.method == "POST":
-            user_username = request.POST['user_username']
-            user_password = request.POST['user_password']
-
-            user = authenticate(username=user_username, password=user_password)
-
-            if user is not None:
-                login(request, user)
-                messages.success(request, "Successfully Logged In")
-                return redirect("/artlist")
-            else:
-                messages.error(request, "Please provide a valid username and password")
-    return render(request, "userlogin.html")
 
 
 def Adminsignup(request):
@@ -150,7 +102,7 @@ class ArtDetail(DetailView):
 
 class ArtCheckoutView(DetailView):
     model = Art
-    template_name = 'checkout.html'
+    template_name = 'buy.html'
 
 
 def PaymentComplete(request,pk):
@@ -161,7 +113,7 @@ def PaymentComplete(request,pk):
     return JsonResponse('Payment Completed',safe=False)
 
 
-@login_required(login_url = '/userlogin/')
+@login_required(login_url = '/accounts/login/')
 def cart(request):
     cart_qs = Cart.objects.filter(user=request.user)
     if cart_qs.exists():
@@ -178,7 +130,7 @@ def cart(request):
     return render(request,'mycart.html',context)
 
 
-@login_required(login_url = '/userlogin/')
+@login_required(login_url = '/accounts/login/')
 def add_to_cart(request,art_id):
     arts = get_object_or_404(Art,id=art_id)
     cart_qs = Cart.objects.filter(user=request.user)
@@ -194,7 +146,7 @@ def add_to_cart(request,art_id):
     cart_obj.save()
     return redirect('mycart')
 
-@login_required(login_url = '/userlogin/')
+@login_required(login_url = '/accounts/login/')
 def remove_from_cart(request,art_id):
     arts = get_object_or_404(Art,id=art_id)
     cart_qs = Cart.objects.filter(user=request.user)
@@ -219,7 +171,7 @@ def Admin(request):
     return render (request, "for_admin.html", {'arts':arts, 'total_arts':total_arts})
 
 def Delete_Arts(request, myid):
-    arts = Art.objects.get(id=myid)
+    arts = Art.objects.get(id=pk)
     if request.method == "POST":
         arts.delete()
         return redirect('/add_arts')
@@ -228,7 +180,7 @@ def Delete_Arts(request, myid):
 
 
 
-@login_required
+
 def User(request):
     arts = Art.objects.all()
     total_arts = arts.count()
@@ -247,9 +199,9 @@ def Add_Arts(request):
 def request_arts(request):
     if request.method=="POST":
         user = request.user
-        art_name = request.POST['art_name']
-        author = request.POST['author']
-        book = Request_Art(user=user, art_name=art_name, author=author)
+        art_title = request.POST['art_name']
+        artist = request.POST['artist']
+        book = Request_Art(user=user, art_title=art_title, artist=artist)
         book.save()
         thank = True
         return render(request, "request_arts.html", {'thank':thank})
@@ -260,8 +212,8 @@ def see_requested_arts(request):
     requested_art_count = requested_art.count()
     return render(request, "see_requested_arts.html", {'requested_art':requested_art, 'requested_art_count':requested_art_count})
 
-def delete_requested_arts(request, myid):
-    delete_art = Request_Art.objects.get(id=myid)
+def delete_requested_arts(request,pk):
+    delete_art = Request_Art.objects.get(id=pk)
     if request.method == "POST":
         delete_art.delete()
         return redirect('/see_requested_books')
@@ -272,12 +224,12 @@ def user_list(request):
     user_count = user.count()
     return render(request, "customerlist.html", {'user':user, 'user_count':user_count})
 
-def orders_list(request, myid):
-    user = Order.objects.filter(id=myid)
+def orders_list(request,pk):
+    user = Order.objects.filter(id=pk)
     return render(request, "orders.html", {'user':user})
 
-def data_view(request, myid):
-    orders = Order.objects.get(id=myid)
+def data_view(request,pk):
+    orders = Order.objects.get(id=pk)
     return JsonResponse(request, {'data':orders.items_json})
 
 

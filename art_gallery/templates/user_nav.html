@@ -14,11 +14,17 @@
       <title>User</title>
 
   </head>
+  <style>
+      body{
+        background-color: lightblue;
+      }
+
+  </style>
   <body>
    <div class="container clearfix">
        <div id="et-secondary-menu">
            <ul class="et-social-icons">
-               <div class="socialIcons" >
+               <div class="socialIcons" align="right" >
                        <a href="#"><ion-icon size="small" name="logo-facebook"></ion-icon></a>
                        <a href="#"><ion-icon size="small" name="logo-linkedin"></ion-icon></a>
                        <a href="#"><ion-icon size="small" name="logo-youtube"></ion-icon></a>
@@ -26,11 +32,15 @@
                </div>
            </ul>
 
+
                    <form class="d-flex" role="search">
-                        <button class="btn btn-outline-dark btn-sm" type="submit">
-                             <ion-icon name="cart-outline"></ion-icon><span class="ms-1"><a href="/orders/">Cart</a><span class="badge rounded-circle text-bg-dark ms-2">0</span></span>
-                        </button>
+                       <div align="right">
+                          <button class="btn btn-outline-dark btn-sm" type="submit">
+                              <ion-icon name="cart-outline"></ion-icon><span class="ms-1"><a href="/cart/">Cart<span class="badge rounded-circle text-bg-dark ms-2">0</span></a></span>
+                          </button>
+                       </div>
                    </form>
+
        </div>
    </div>
 
@@ -53,20 +63,21 @@
 
                   <li><a class="dropdown-item" href="/drawing/">Drawing</a></li>
                   <li><a class="dropdown-item" href="/compitition/">Compitition</a></li>
-                   <li><a class="dropdown-item" href="/practice/">practics</a></li>
                   <li><a class="dropdown-item" href="/request_arts/">Request a Art</a></li>
+                   <li><a class="dropdown-item" href="/for_user/">All Paintings</a></li>
+                   <li><a class="dropdown-item" href="/orders/">Order</a></li>
+                  <li><a class="dropdown-item" href="/logout/">Logout</a></li>
                 </ul>
               </li>
-          {% block cart-item %} {% endblock %}
+                {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Welcome {{request.user}}</a>
+                    </li>
+                {% endif %}
             </ul>
-            {% if user.is_authenticated %}
-              <a class="nav-link" href="#">Welcome {{request.user}}</a>
-              <a href="/logout/" class="btn btn-outline-dark mx-4" type="submit">Logout</a>
-            {% endif %}
-
           </div>
         </div>
-      </nav>
+    </nav>
 
       {% block body %}
 
