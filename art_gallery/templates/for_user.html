@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>Title</title>
+</head>
+<body>
+
+<li class="nav-item">
+  <a class="nav-link btn btn-light" href="/checkout/" aria-current="page" >Cart
+    (<span id="cart">0</span>)</a>
+</li>
+{% endblock %}
+
+
+{% block body %}
+
+<div class="row">
+  <div class="col-md">
+    <div class="card card-body">
+      <h5>All Arts ({{total_arts}})</h5>
+    </div>
+    <div class="card card-body">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Category</th>
+            <th>description</th>
+            <th>Price</th>
+            <th>Stock</th>
+            <th>Quantity</th>
+            <th>Add To Cart</th>
+          </tr>
+        </thead>
+        {% for art in arts %}
+        <tr>
+          <td id="namepr{{art.id}}">{{art.book_name}}</td>
+          <td id="artistpr{{art.id}}">{{art.artist}}</td>
+          <td id="categorypr{{art.id}}">{{art.category}}</td>
+          <td id="descriptionpr{{art.id}}">{{art.description}}</td>
+          <td> ₹<span id="pricepr{{art.id}}">{{art.price}}</span></td>
+          <td id="stock{{art.id}}">{{art.stock}}</td>
+          <td class="quantity" id="divpr{{art.id}}"></td>
+          <td><button id="pr{{art.id}}" class="btn btn-info cart"><a href="/checkout/" >Buy Now</a></button></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+
+</body>
+</html>

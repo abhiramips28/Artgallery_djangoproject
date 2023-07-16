@@ -1,0 +1,48 @@
+{% extends 'user_nav.html' %}
+
+{% block content %}
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/artlist.css' %}">
+    <title>Title</title>
+
+     <style>
+       body {
+          background-color: lightblue;
+       }
+     </style>
+</head>
+
+<body>
+ <div class="container">
+     <div class="row">
+         {% for art in arts %}
+         <div class="col row-cols-4 g-3">
+            <div class="col">
+                <div class="card h-100">
+
+                   <div class="card" style="width: 20rem;">
+                     <img src="{{ art.image_url }}" class="card-img-top" alt="....">
+                      <div class="card-body">
+                        <h5 class="card-title"><font size="5">{{art.title}}</font></h5>
+                        <p class="card-text">{{art.category}}</p>
+                        <p class="card-text">₹ {{art.price}}/-</p>
+                        <p><small class="text-muted">Free Delivery</small></p><br>
+                        <a href="{% url 'artdetails' art.id %}" class="btn btn-primary">View</a>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            </div>
+         </div>
+        {% endfor %}
+     </div>
+ </div>
+</body>
+</html>
+{% endblock content %}

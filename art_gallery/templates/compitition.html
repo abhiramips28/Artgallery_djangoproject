@@ -1,0 +1,23 @@
+{% extends 'artlist.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h1>tell us what artworks would you like to do?</h1>
+    {%for c in Compitition %}
+    <h3><a href="{% url 'artwork' c.id %}"> {{c.Artworks}}</a></h3>
+
+
+{% endfor %}
+
+
+</body>
+</html>
+{% endblock content %}

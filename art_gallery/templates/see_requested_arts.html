@@ -1,0 +1,39 @@
+{% extends 'admin_home.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="row">
+    <div class="col-md">
+      <div class="card card-body">
+        <h5>All Arts Request ({{request_arts_count}})</h5>
+      </div>
+      <div class="card card-body">
+        <table class="table">
+          <tr>
+            <th>Customer</th>
+            <th>Art Name</th>
+            <th>Artist</th>
+            <th>Delete</th>
+          </tr>
+
+          {% for i in request_arts %}
+            <tr>
+              <td>{{i.user}}</td>
+              <td>{{i.book_name}}</td>
+              <td>{{i.artist}}</td>
+              <td><a href="/delete_requested_arts/delete_{{i.id}}/" class="btn btn-danger">Delete</a></td>
+            </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+{% extends 'user_nav.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Pencil Drawing Effect</title>
+  <style>
+    canvas {
+      border: 1px solid black;
+      width: 800px
+    }
+  </style>
+</head>
+<body>
+  <input type="file" id="imageInput" accept="image/*">
+  <button onclick="convertToPencilDrawing()">Convert to Pencil Drawing</button>
+  <canvas id="canvas"></canvas>
+
+  <script>
+    var convertToPencilDrawing = function() {
+      // Get the selected image file
+      var fileInput = document.getElementById("imageInput");
+      var file = fileInput.files[0];
+
+      if (file) {
+        // Create a FileReader to read the image file
+        var reader = new FileReader();
+
+        // When the FileReader has loaded the image
+        reader.onload = function(event) {
+          // Create an image object
+          var image = new Image();
+
+          // When the image has loaded
+          image.onload = function() {
+            // Get the canvas element and its context
+            var canvas = document.getElementById("canvas");
+            var context = canvas.getContext("2d");
+
+            // Set the canvas dimensions to match the image dimensions
+            canvas.width = image.width;
+            canvas.height = image.height;
+
+            // Draw the image on the canvas
+            context.drawImage(image, 0, 0);
+
+            // Get the image data
+            var imageData = context.getImageData(0, 0, canvas.width, canvas.height);
+            var data = imageData.data;
+
+            // Apply the pencil drawing effect
+            for (var i = 0; i < data.length; i += 4) {
+              var r = data[i];
+              var g = data[i + 1];
+              var b = data[i + 2];
+
+              // Convert to grayscale using luminosity method
+              var gray = 0.21 * r + 0.72 * g + 0.07 * b;
+
+              // Apply a threshold to create a black and white effect
+              var threshold = 80;
+              var value = gray > threshold ? 255 : 0;
+
+              data[i] = value; // Red
+              data[i + 1] = value; // Green
+              data[i + 2] = value; // Blue
+            }
+
+            // Put the modified image data back on the canvas
+            context.putImageData(imageData, 0, 0);
+
+            // Convert the canvas to a data URL
+            var dataURL = canvas.toDataURL("image/jpeg");
+
+            // Create a temporary link to download the converted image
+            var downloadLink = document.createElement("a");
+            downloadLink.href = dataURL;
+            downloadLink.download = "pencil_drawing.jpg";
+            downloadLink.click();
+          };
+
+          // Set the source of the img
+          image.src = event.target.result;
+        };
+
+        // Read the image file as a data URL
+        reader.readAsDataURL(file);
+      }
+    };
+  </script>
+</body>
+</html>
+{% endblock content %}

@@ -1,0 +1,79 @@
+{% extends 'artlist.html' %}
+{% load static %}
+
+
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Competition Timer</title>
+  <script>
+    // Function to start the countdown timer
+    function startTimer(duration, display) {
+      var timer = duration, hours, minutes, seconds;
+      setInterval(function () {
+        hours = parseInt(timer / 3600, 10);
+        minutes = parseInt((timer % 3600) / 60, 10);
+        seconds = parseInt((timer % 3600) % 60, 10);
+
+        hours = hours < 10 ? "0" + hours : hours;
+        minutes = minutes < 10 ? "0" + minutes : minutes;
+        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = hours + ":" + minutes + ":" + seconds;
+
+        if (--timer < 0) {
+          clearInterval(timer);
+          display.textContent = " congratulation you are successfully compleated the task";
+
+          // Add upload option for image
+          var uploadContainer = document.getElementById("uploadContainer");
+          uploadContainer.style.display = "block";
+        }
+      }, 1000);
+    }
+
+    // Function to retrieve and start the countdown timer
+    function startCountdown() {
+      var timeInput = document.getElementById("timeInput");
+      var timeInputValue = timeInput.value;
+      var countdownDisplay = document.getElementById("countdownDisplay");
+
+      if (timeInputValue !== "") {
+        var timeArray = timeInputValue.split(":");
+        var hours = parseInt(timeArray[0], 10);
+        var minutes = parseInt(timeArray[1], 10);
+        var seconds = parseInt(timeArray[2], 10);
+
+        var duration = hours * 3600 + minutes * 60 + seconds;
+        startTimer(duration, countdownDisplay);
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Competition Timer</h1>
+  <label for="timeInput">Enter time (hh:mm:ss):</label>
+  <input type="text" id="timeInput">
+  <button onclick="startCountdown()">Start</button>
+  <h2 id="countdownDisplay">00:00:00</h2>
+
+  <!-- Upload container -->
+  <div id="uploadContainer" style="display: none;">
+      <div class="card-body" style="width: 30%; margin-left: 35%; margin-top: 10%;">
+    <form action="" method="post" enctype="multipart/form-data">
+        <center>
+        {% csrf_token %}
+    {{form.as_p}}
+    <input class="button" type="submit"  onclick="alert('Result will inform through you mail id')" value="Submit">
+        </center>
+    </form>
+</div>
+    <!-- Add button or form submission to handle the image upload -->
+  </div>
+</body>
+</html>
+
+
+
+{% endblock content %}
