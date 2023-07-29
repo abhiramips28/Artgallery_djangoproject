@@ -11,7 +11,7 @@
 </head>
 <body>
 <h1>tell us what artworks would you like to do?</h1>
-    {%for c in compitition %}
+    {%for c in Compitition %}
     <h3><a href="{% url 'artwork' c.id %}"> {{c.artwork}}</a></h3>
 
 

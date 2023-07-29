@@ -1,17 +1,22 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
+from .models import Art
 from .views import SearchResultsView, ArtList, ArtDetail, ArtCheckoutView, PaymentComplete, cart, add_to_cart, \
-    remove_from_cart, PracticeView, Compititionlist, ArtworkDetailView
+    remove_from_cart, PracticeView, Compititionlist, ArtworkDetailView, HomeView, \
+    Artcreate
 
 urlpatterns =[
-    path('',views.base,name='base'),
+    path('',HomeView.as_view(),name='base'),
+
+    path('login/',views.LoginPage,name='login'),
+    re_path(r'^signup/$',views.SignupPage,name='signup'),
 
     path('admin_signup/',views.Adminsignup,name='admin_signup'),
     path('adminlogin/',views.Adminlogin,name='adminlogin'),
 
-
     path('user_nav/',views.UserHome,name='user_nav'),
     path('admin_home/',views.AdminHome,name='admin_home'),
+    path('artcreate/',Artcreate.as_view(), name='artcreate'),
     path('orders/<int:pk>/',views.orders_list, name='orders'),
     path("for_user/",views.User, name="for_user"),
     path("request_arts/",views.request_arts, name="request_arts"),
@@ -32,7 +37,8 @@ urlpatterns =[
     path("customerlist/orders/<int:pk>/",views.orders_list, name="orders_list"),
     path("customerlist/orders/<int:pk>/data/",views.data_view, name="data"),
 
-    path('buy/<int:pk>/', ArtCheckoutView.as_view(), name='checkout'),
+    path('checkout/',views.checkout, name='checkout'),
+    path('buy/<int:pk>/', ArtCheckoutView.as_view(), name='buy'),
     path('complete/<int:pk/', PaymentComplete, name='complete'),
 
     path('compitition/', Compititionlist.as_view(), name='compitition'),

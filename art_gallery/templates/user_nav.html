@@ -14,8 +14,8 @@
       <title>User</title>
 
   </head>
-  <body style="background-image: url('{% static 'img/img02.jpg' %}')">
-   <div class="container clearfix">
+  <body>
+   <div class="containerclearfix">
        <div id="et-secondary-menu">
            <ul class="et-social-icons">
                <div class="socialIcons" align="right" >
@@ -26,14 +26,11 @@
                </div>
            </ul>
 
-
-                   <form class="d-flex" role="search">
-                       <div align="right">
-                          <button class="btn btn-outline-dark btn-sm" type="submit">
-                              <ion-icon name="cart-outline"></ion-icon><span class="ms-1"><a href="/cart/">Cart<span class="badge rounded-circle text-bg-dark ms-2">0</span></a></span>
-                          </button>
-                       </div>
-                   </form>
+           <form class="d-flex" role="search" align="right" >
+               <button class="btn btn-outline-dark btn-sm" type="submit">
+                   <ion-icon name="cart-outline"></ion-icon><span class="ms-1"><a href="/cart/">Cart<span class="badge rounded-circle text-bg-dark ms-2">0</span></a></span>
+               </button>
+           </form>
 
        </div>
    </div>
@@ -84,7 +81,7 @@
                       <li><a class="dropdown-item" href="/profile/">Profile</a></li>
                       <li><a class="dropdown-item" href="/mycart">Cart</a></li>
                       <li><a class="dropdown-item" href="/orders/">Order</a></li>
-                       <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+                       <li><a class="dropdown-item" href="/">Logout</a></li>
                    </ul>
                  </li>
               </ul>

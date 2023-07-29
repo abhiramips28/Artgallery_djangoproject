@@ -1,18 +1,8 @@
+from django.contrib.auth.models import User
 from django.db import models
 
 # Create your models here.
 
-
-class User(models.Model):
-    firstname = models.CharField(max_length=50)
-    lastname = models.CharField(max_length=50)
-    phone_number = models.IntegerField()
-    email_id = models.CharField(max_length=25)
-    username = models.CharField(max_length=20)
-    password = models.CharField(max_length=15)
-
-    def __str__(self):
-        return self.firstname+" "+self.lastname
 
 class Art(models.Model):
     CATEGORY = (
@@ -21,6 +11,9 @@ class Art(models.Model):
         ('Watercolor', 'Watercolor'),
         ('Pastel', 'Pastel'),
         ('Glasswork', 'Glasswork'),
+        ('Oil on Canvas','Oil on Canvas'),
+        ('Acrylic on Canvas','Acrylic on Canvas'),
+
     )
 
     title = models.CharField(max_length=100)
@@ -29,7 +22,7 @@ class Art(models.Model):
     description = models.TextField()
     price = models.FloatField(null=True,blank=True)
     image_url = models.CharField(max_length=2083,blank=True)
-    Stock = models.IntegerField(default=2)
+    Stock = models.CharField(max_length=20)
 
     def __str__(self):
         return self.title
@@ -62,7 +55,7 @@ class Admin(models.Model):
 
 class Cart(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
-    Items = models.ManyToManyField(Art)
+    items = models.ManyToManyField(Art)
     total_price = models.DecimalField(max_digits=10,decimal_places=2)
 
 class CartItem(models.Model):

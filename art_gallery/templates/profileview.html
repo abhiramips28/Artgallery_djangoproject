@@ -17,7 +17,7 @@
             width: 300px;
             height: 300px;
         }
-.img1{
+        .img1{
             border: 1px solid #ddd;
             border-radius: 90%;
             padding: 4px;
@@ -135,8 +135,8 @@
                 <div class="card-body">
                     {% for p in profiles %}
                         <h10 class="card-title">{{ p.user.username }}</h10>
-                        <p class="card-text"><small class="text-body-secondary">{{ p.email }}</small></p>
-                        <p class="card-text"><small class="text-body-secondary">{{ p.mobile_number }}</small></p>
+                        <p class="card-text"><small class="text-body-secondary">{{ p.email_id }}</small></p>
+                        <p class="card-text"><small class="text-body-secondary">{{ p.phone_number }}</small></p>
                         <p class="card-text"><small class="text-body-secondary">{{ p.bio }}</small></p>
                         <a href="{% url 'profile-update' p.id %}"><button type="submit" class="btn">Edit profile</button></a>
                         <br>
@@ -236,7 +236,7 @@
                 <a href="{% url 'mycart' %}">
                     <button type="submit" class="btn btn-lg btn-block mx-auto" style="font-size: 40px;  padding: 1px 1px;">Add to cart</button>
                 </a>     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{% url 'art-list' %}">
+                <a href="{% url 'artlist' %}">
                     <button type="submit" class="btn btn-lg btn-block mx-auto" style="font-size: 40px;  padding: 1px 1px;">Buy products</button>
                 </a>
                 <img class="img1" src="{% static 'img_8.png' %}" alt="{{ a.CATEGORY }}" style="margin-left: 300px; width: 300px; height: 300px;">

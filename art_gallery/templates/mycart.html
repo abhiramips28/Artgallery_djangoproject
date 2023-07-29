@@ -23,7 +23,7 @@
         }
 
         h2 {
-            color: red;
+            color: lightgreen;
             font-family: arial, sans-serif;
             font-size: 75px;
             font-weight: bold;
@@ -77,16 +77,11 @@
                </div>
            </div>
         </div>
-        <a class="btn btn-outline-danger" href="{% url 'remove_from_cart' art_id=art_item.id %}" onclick="alert('Item removed from cart')">Remove from cart</a>
+        <a class="btn btn-outline-danger" href="{% url 'remove_from_cart' cart_item.id %}" onclick="alert('Item removed from cart')">Remove from cart</a>
       </div>
     </div>
     {% endfor %}
-
-
-    <a class="btn btn-outline-primary" href="/checkout/">Buy</a></p>
-    {% else %}
-    <p>Your cart is empty</p>
-    <a href="{% url 'artlist' %}">Continue Shopping</a>
+    <a class="btn btn-outline-primary" href="{% url 'checkout' %}">Buy</a></p>
 
 </ul>
 {% endif %}

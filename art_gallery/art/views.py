@@ -1,23 +1,62 @@
 from decimal import Decimal
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.views import LoginView
 from django.db.models import Q
-from django.http import JsonResponse
+from django.contrib.auth.models import User
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView
-from .decorator import admin_or_user
-from .models import Art, User, Order, Admin, Cart, CartItem, Request_Art, Artworks, Compitition
+
+from django.views.generic import ListView, DetailView, CreateView, FormView, TemplateView
+
+from .models import Art, Order, Admin, Cart, CartItem, Request_Art, Artworks, Compitition
 
 
 # Create your views here.
 
-def base(request):
-    return render(request,'base.html')
+class HomeView(TemplateView):
+    template_name = 'base.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
 
 
+def SignupPage(request):
 
+        if request.method == "POST":
+            unname = request.POST.get('username')
+            email = request.POST.get('email')
+            pass1 = request.POST.get('password1')
+            pass2 = request.POST.get('password2')
+
+            if pass1 != pass2:
+                return HttpResponse("Your password and conform password are not Same!!")
+            else:
+                my_user = User.objects.create_user(unname,email,pass1)
+                my_user.save()
+                return redirect('login.html')
+        return render(request, 'signup.html')
+
+def LoginPage(request):
+    if request.method=='POST':
+        username=request.POST.get('username')
+        password=request.POST.get('password')
+        user=authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('artlist')
+        else:
+            return HttpResponse ("Username or Password is incorrect!!!")
+
+    return render (request,'login.html')
+
+def LogoutPage(request):
+    logout(request)
+    return redirect('login')
 
 def Adminsignup(request):
     if request.user.is_authenticated:
@@ -72,6 +111,13 @@ def UserHome(request):
 def AdminHome(request):
     return render(request,'admin_home.html')
 
+class Artcreate(CreateView):
+    model = Art
+    fields = ['title,artist,category,description,price,image_url,Stock']
+    success_url = reverse_lazy('artlist')
+    template_name = 'artcreate.html'
+
+
 
 class SearchResultsView(ListView):
     model = Art
@@ -107,7 +153,7 @@ def PaymentComplete(request,pk):
     return JsonResponse('Payment Completed',safe=False)
 
 
-@login_required(login_url = '/accounts/login/')
+@login_required
 def cart(request):
     cart_qs = Cart.objects.filter(user=request.user)
     if cart_qs.exists():
@@ -124,7 +170,7 @@ def cart(request):
     return render(request,'mycart.html',context)
 
 
-@login_required(login_url = '/accounts/login/')
+@login_required
 def add_to_cart(request,art_id):
     arts = get_object_or_404(Art,id=art_id)
     cart_qs = Cart.objects.filter(user=request.user)
@@ -140,7 +186,7 @@ def add_to_cart(request,art_id):
     cart_obj.save()
     return redirect('mycart')
 
-@login_required(login_url = '/accounts/login/')
+@login_required
 def remove_from_cart(request,art_id):
     arts = get_object_or_404(Art,id=art_id)
     cart_qs = Cart.objects.filter(user=request.user)
@@ -193,10 +239,10 @@ def Add_Arts(request):
 def request_arts(request):
     if request.method=="POST":
         user = request.user
-        art_title = request.POST['art_name']
+        art_title = request.POST['art_title']
         artist = request.POST['artist']
-        book = Request_Art(user=user, art_title=art_title, artist=artist)
-        book.save()
+        art = Request_Art(user=user, art_title=art_title, artist=artist)
+        art.save()
         thank = True
         return render(request, "request_arts.html", {'thank':thank})
     return render(request, "request_arts.html")

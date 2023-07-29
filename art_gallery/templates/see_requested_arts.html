@@ -1,11 +1,13 @@
 {% extends 'admin_home.html' %}
+{% load static %}
 
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>Requested Paintings</title>
 </head>
 <style>
      body {
@@ -17,13 +19,15 @@
 <div class="row">
     <div class="col-md">
       <div class="card card-body">
-        <h5>All Arts Request ({{request_arts_count}})</h5>
+        <h5>All Paintings Request ({{request_arts_count}})</h5>
       </div>
       <div class="card card-body">
-        <table class="table">
-          <tr>
+        <form action="/see_requested_arts/" method="POST">
+            {% csrf_token %}
+         <table class="table">
+           <tr>
             <th>Customer</th>
-            <th>Art Name</th>
+            <th>Art Title</th>
             <th>Artist</th>
             <th>Delete</th>
           </tr>
@@ -31,15 +35,17 @@
           {% for i in request_arts %}
             <tr>
               <td>{{i.user}}</td>
-              <td>{{i.book_name}}</td>
+              <td>{{i.art_title}}</td>
               <td>{{i.artist}}</td>
               <td><a href="/delete_requested_arts/delete_{{i.id}}/" class="btn btn-danger">Delete</a></td>
             </tr>
           {% endfor %}
-        </table>
+         </table>
+        </form>
       </div>
     </div>
 </div>
 
 </body>
 </html>
+{% endblock content %}

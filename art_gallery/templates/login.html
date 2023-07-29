@@ -22,27 +22,27 @@
             margin-left: -300px;
             text-align: right;
      }
-      label {
+     label {
             display: block;
             font-weight: bold;
             margin-bottom: 5px;
             text-align: center;
-        }
+     }
 
-        input[type="text"],
-        input[type="password"] {
+     input[type="text"],
+     input[type="password"] {
             width: 45%;
             padding: 5px;
             border: 1px solid #ccc;
             border-radius: 4px;
-        }
+     }
 
-        .error {
+     .error {
             color: red;
             margin-top: 5px;
-        }
+     }
 
-        .btn-primary {
+     .btn-primary {
             background-color: red;
             border: none;
             color: white;
@@ -53,13 +53,13 @@
             font-size: 16px;
             border-radius: 4px;
             transition: background-color 0.3s;
-        }
+     }
 
-        .btn-primary:hover {
+     .btn-primary:hover {
             background-color: #cc0000;
-        }
+     }
 
-        .btn-outline-info {
+     .btn-outline-info {
             background-color: red;
             border: none;
             color: white;
@@ -70,28 +70,34 @@
             font-size: 16px;
             border-radius: 4px;
             transition: background-color 0.3s;
-        }
+     }
 
-        .btn-outline-info:hover {
+     .btn-outline-info:hover {
             background-color: #cc0000;
-        }
+     }
 
 </style>
-<body id="bg" style="background-image:url('{% static 'image/image04.jpg' %}')">
+<body>
 <div class="container">
 	<div class="row justify-content-md-center">
 		<div class="col-md-5 col-sm-4">
 			<div class="signin-form">
                 <h3>Sign In</h3>
                 <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid" alt="Sample image">
-               <form method="post">
-                 {% csrf_token %}
-                 {{ form.as_p }}
-                 <a type="submit" href="/artlist/" class="btn btn-success">Login</a>
-               </form>
+                <div class="card-body" align="center">
+                    <form method="post">
+                      {% csrf_token %}
+                      <label for="username">Username</label>
+                       <input type="text" placeholder="Enter Username" id="username" name="username">
+                       <label for="password">Password</label>
+                       <input type="password" placeholder="Password" id="password" name="password">
+
+                      <input class="button"  type="submit" value="login">
+                    </form>
+                </div>
                 <a href="#" class="link">Forgot your password?</a>
-                <div class="a-divider-break"><h6>New to BookStore</h6></div>
-                <a class="btn-btn-outline-info" href="{% url 'signup' %}" role="button">Create you Bookstore account</a>
+                <div class="a-divider-break"><h6>New to Art Gallery Store</h6></div>
+                <a class="btn-btn-outline-info" href="{% url 'signup' %}" role="button">Create an account</a>
 
             </div>
         </div>

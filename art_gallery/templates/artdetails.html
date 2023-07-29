@@ -13,6 +13,10 @@
 <style>
     body{
       background-color: lightblue;
+    }
+    .card-body{
+        width: 400px;
+    }
 </style>
 <body>
 
@@ -32,15 +36,15 @@
             <h4 class="card-title">{{object.title}}</h4>
             <p class="card-text">Artist:{{object.artist}}</p>
             <p class="card-text">{{object.description}}</p>
+            <p>Price: Rs/- {{ object.price|floatformat:2 }}</p>
           </div>
         </div>
      </div>
      <div class="card" style="background-color: lightpink; margin: 20%;">
-     <p>Price: Rs/- {{ object.price|floatformat:2 }}</p>
          <a id="add-to-cart-btn" class="btn-btn-success"  href="{% url 'add_to_cart' arts.id %}" onclick="alert('Item added to cart')" ><font size="5">Add to cart</font></a>
              <div class="wish-add-cart">
                  <div class="form-action">
-                     <a href="/mycart/"><input id="form-action-addToCart"  style="color: red;" data-wait-message="Adding to cart…" class="btn btn-outline-success" type="submit" value="Add to Cart"></a>
+                     <a href="/checkout/"><input id="form-action-addToCart"  style="color: red;" data-wait-message="Adding to cart…" class="btn btn-outline-success" type="submit" value="Buy"></a>
                  </div>
              </div>
      </div>
