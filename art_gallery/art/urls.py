@@ -3,7 +3,7 @@ from . import views
 from .models import Art
 from .views import SearchResultsView, ArtList, ArtDetail, ArtCheckoutView, PaymentComplete, cart, add_to_cart, \
     remove_from_cart, PracticeView, Compititionlist, ArtworkDetailView, HomeView, \
-    Artcreate
+    Artcreate, OrderListView
 
 urlpatterns =[
     path('',HomeView.as_view(),name='base'),
@@ -11,13 +11,14 @@ urlpatterns =[
     path('login/',views.LoginPage,name='login'),
     re_path(r'^signup/$',views.SignupPage,name='signup'),
 
-    path('admin_signup/',views.Adminsignup,name='admin_signup'),
-    path('adminlogin/',views.Adminlogin,name='adminlogin'),
+    path('artist_signup/',views.Adminsignup,name='artist_signup'),
+    path('artist_login/',views.Adminlogin,name='artist_login'),
 
     path('user_nav/',views.UserHome,name='user_nav'),
-    path('admin_home/',views.AdminHome,name='admin_home'),
+    path('artist_home/',views.AdminHome,name='artist_home'),
     path('artcreate/',Artcreate.as_view(), name='artcreate'),
-    path('orders/<int:pk>/',views.orders_list, name='orders'),
+
+    path('orders/', OrderListView.as_view(), name='orders'),
     path("for_user/",views.User, name="for_user"),
     path("request_arts/",views.request_arts, name="request_arts"),
 
@@ -34,12 +35,12 @@ urlpatterns =[
     path("customerlist/",views.user_list, name="customerlist"),
     path("see_requested_arts/",views.see_requested_arts, name="see_requested_arts"),
     path("delete_requested_arts/delete_<int:pk>/",views.delete_requested_arts, name="delete_requested_arts"),
-    path("customerlist/orders/<int:pk>/",views.orders_list, name="orders_list"),
+
     path("customerlist/orders/<int:pk>/data/",views.data_view, name="data"),
 
-    path('checkout/',views.checkout, name='checkout'),
-    path('buy/<int:pk>/', ArtCheckoutView.as_view(), name='buy'),
-    path('complete/<int:pk/', PaymentComplete, name='complete'),
+    path('checkout/<int:pk>/',views.checkout, name='checkout'),
+    path('buy/<int:pk>/', ArtCheckoutView.as_view(), name='buynow'),
+    path('complete/<int:pk>/', PaymentComplete, name='complete'),
 
     path('compitition/', Compititionlist.as_view(), name='compitition'),
     path('artwork/<int:pk>/', ArtworkDetailView.as_view(), name='artwork'),

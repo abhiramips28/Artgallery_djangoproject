@@ -24,10 +24,11 @@
         </div>
 
     <div class="container">
-       <form action="/request_arts/" method="POST"> {% csrf_token %}
+       <form action="/request_arts/" method="POST">
+           {% csrf_token %}
           <input type="text" name="art_title" id="art_title" placeholder="Art Title">
            <input type="text" name="artist" id="artist" placeholder="Art Artist">
-                <button type="submit"><a href="/artlist/">Submit</a></button>
+                <button type="submit"><a href="">Submit</a></button>
        </form>
     </div>
    </div>

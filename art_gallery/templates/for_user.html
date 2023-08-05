@@ -36,8 +36,6 @@
             <th>Category</th>
             <th>description</th>
             <th>Price</th>
-            <th>Stock</th>
-            <th>Quantity</th>
             <th>Add To Cart</th>
           </tr>
         </thead>
@@ -48,9 +46,7 @@
           <td id="categorypr{{art.id}}">{{art.category}}</td>
           <td id="descriptionpr{{art.id}}">{{art.description}}</td>
           <td> ₹<span id="pricepr{{art.id}}">{{art.price}}</span></td>
-          <td id="stock{{art.id}}">{{art.stock}}</td>
-          <td class="quantity" id="divpr{{art.id}}"></td>
-          <td><button id="pr{{art.id}}" class="btn btn-info cart"><a href="/cart/" >Buy Now</a></button></td>
+          <td><button id="pr{{art.id}}" class="btn btn-info cart"><a href="{% url 'checkout' art.id %}" >Buy Now</a></button></td>
         </tr>
         {% endfor %}
       </table>

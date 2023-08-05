@@ -8,6 +8,7 @@
     <title> Art Gallery Store </title>
 </head>
 <style>
+
     body{
       background-image: url('{% static 'img03.jpg' %}');
     }
@@ -22,7 +23,7 @@
               </button>
             <form class="d-flex" >
                <a href= "{% url 'login' %}" class="btn btn-outline-warning" type="submit">User</a>
-               <a href="/adminlogin/" class="btn btn-outline-warning mx-4" type="submit">Admin</a>
+               <a href="{% url 'artist_login' %}" class="btn btn-outline-warning mx-4" type="submit">Admin</a>
             </form>
         </div>
     </nav>

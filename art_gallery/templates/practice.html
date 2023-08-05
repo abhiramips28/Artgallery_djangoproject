@@ -52,12 +52,75 @@
   </script>
 </head>
 <style>
-     body {
-            font-family: Arial, sans-serif;
-            background-color: lightblue;
+     body{
+
+         background-color: lightblue;
      }
+     h1 {
+         font-size: 60px;
+         color: black;
+         text-shadow: 2px 2px white;
+         text-align:center;
+     }
+     label{
+        font-size: 25px;
+        color: black;
+     }
+
+     h2 {
+       font-size: 50px;
+       color: green;
+       text-shadow: 2px 2px white;
+       text-align: center;
+     }
+     #countdowndisplay {
+        font-size: 100px;
+        text-align: center;
+     }
+     #timeInput {
+            display: block;
+            margin: 0 auto;
+            width: 300px;
+            height: 50px;
+            font-size: 24px;
+            text-align: center;
+     }
+
+     button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 24px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+
+     }
+     form {
+          text-align: center;
+     }
+    .button {
+            margin-top: 10px;
+            font-size: 16px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+
+    }
+    .card-body {
+            width: 30%;
+            margin-left: 35%;
+            margin-top:-50%;
+            background-color: white;
+            border: 5px solid red;
+            padding: 20px;
+    }
 </style>
 <body>
+<center>
   <h1>Competition Timer</h1>
   <label for="timeInput">Enter time (hh:mm:ss):</label>
   <input type="text" id="timeInput">
@@ -77,6 +140,7 @@
 </div>
     <!-- Add button or form submission to handle the image upload -->
   </div>
+</center>
 </body>
 </html>
 

@@ -31,7 +31,6 @@ class Art(models.Model):
 class Order(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,default=1)
     items = models.CharField(max_length=5000,blank=True)
-    price = models.IntegerField(default=0)
     name = models.CharField(max_length=100,blank=True)
     email = models.CharField(max_length=100,blank=True)
     address = models.CharField(max_length=100,default="")
@@ -51,6 +50,8 @@ class Admin(models.Model):
 
     def __str__(self):
         return self.firstname+" "+self.lastname
+
+
 
 
 class Cart(models.Model):

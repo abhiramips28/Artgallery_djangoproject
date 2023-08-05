@@ -93,8 +93,8 @@
 <h3 class = "text-secondary">Search Results</h3><hr>
 {% for every in object_list %}
 <div>
-    <h3><a href="{% url 'artdetails' every.pk %}">{{every.title}}</a></h3>
-    <p>Artist: {{every.artist}}</p>
+    <h3><a href="{% url 'artdetails' every.pk %}">{{every.category}}</a></h3>
+
 </div>
 {% endfor %}
 </body>

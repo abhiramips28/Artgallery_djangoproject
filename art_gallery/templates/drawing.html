@@ -8,21 +8,20 @@
 <head>
   <title>Pencil Drawing Effect</title>
   <style>
+     body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue;
+     }
     canvas {
+
       border: 1px solid black;
       width: 800px
     }
   </style>
 </head>
-<style>
-     body {
-            font-family: Arial, sans-serif;
-            background-color: lightblue;
-     }
-</style>
 <body>
-  <input type="file" id="imageInput" accept="image/*">
-  <button onclick="convertToPencilDrawing()">Convert to Pencil Drawing</button>
+  <input class="btn btn-outline-primary" type="file" id="imageInput" accept="image/*">
+  <button class="btn btn-outline-primary" onclick="convertToPencilDrawing()">Convert to Pencil Drawing</button>
   <canvas id="canvas"></canvas>
 
   <script>

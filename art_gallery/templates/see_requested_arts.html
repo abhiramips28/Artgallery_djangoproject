@@ -1,4 +1,4 @@
-{% extends 'admin_home.html' %}
+{% extends 'artist_home.html' %}
 {% load static %}
 
 {% block content %}
@@ -22,7 +22,7 @@
         <h5>All Paintings Request ({{request_arts_count}})</h5>
       </div>
       <div class="card card-body">
-        <form action="/see_requested_arts/" method="POST">
+        <form action="" method="POST">
             {% csrf_token %}
          <table class="table">
            <tr>

@@ -1,7 +1,4 @@
-{% extends 'user_nav.html' %}
 {% load static %}
-
-{% block content %}
 <!doctype html>
 <html lang="en">
 
@@ -25,18 +22,15 @@
         <div class="container text-white py-5 text-center">
             <h1 class="display-4">Art Gallery Management System</h1>
         </div>
-
         <div class="pb-5">
             <div class="container">
-              <form class="row g-3" method="POST" action="">
-                  {% csrf_token %}
                 <div class="row py-5 p-4 bg-white rounded shadow-sm">
-
                     <div class="col-lg-6">
                         <div class="bg-light rounded-pill px-4 py-3 text-uppercase font-weight-bold"
                             style="color:black;font-weight:bold">Billing Details</div>
                         <br>
-
+                          <form class="row g-3" method="POST" action="">
+                            {% csrf_token %}
                             <input type="hidden" name="itemsJson" id="itemsJson">
                             <input type="hidden" name="price" id="price" class="price">
                             <div class="col-md-12">
@@ -73,22 +67,12 @@
                                 <option value="cards">Online Payment</option>
                             </select>
                             <br>
-
-                            <p class="font-italic mb-4" style="color: black;">Shipping and additional costs are
-                                calculated based on values you have entered.</p>
-                            <ul class="list-unstyled mb-4">
-                                <li class="d-flex justify-content-between py-3 border-bottom">
-                                    <strong class="text-muted">Total</strong>
-                                    <h5 class="font-weight-bold total" id="total"></h5>
-                                </li>
-                            </ul>
                             <div class="col-12 my-3">
-                                <button type="submit" class="btn btn-primary"><a href="/buy/"> Place Order </a></button>
+                                <a href="{% url 'buy' arts.pk %}" class="btn btn-outline-success" role="button" style="margin-right: 1%"><font size="5">Place Order</font></a>
                             </div>
                         </div>
                     </div>
                 </div>
-              </form>
             </div>
         </div>
     </div>
@@ -111,44 +95,42 @@
     }
     let finalPrice = 0;
     if ($.isEmptyObject(cart)) {
-        empty = `<p>You have not added any book to the cart yet.</p>`
+        empty = `<p>You have not added any art to the cart yet.</p>`
         $('.cart-body').append(empty);
-        $(".total").html('₹ ' + finalPrice);
+
     }
     else {
         let table = `
         <table class = table>
         <thead class = 'thead-light'>
         <tr>
-        <th> Art Name </th>
+        <th> Title </th>
         <th> Author </th>
         <th> Category </th>
-        <th> Price </th>
+
         <th> Quantity </th>
-        <th> Total Price </th>
+
 
         </tr>
         </thead>
         `;
         for (item in cart) {
             let qty = cart[item][0];
-            let name = cart[item][1];
+            let title = cart[item][1];
             let author = cart[item][2];
             let category = cart[item][3];
-            let price = cart[item][4];
-            let totalPrice = qty * price;
+
             table += `
                     <tr>
-                        <td>${name}</td>
+                        <td>${title}</td>
                         <td>${author}</td>
                         <td>${category}</td>
-                        <td>₹${price}</td>
+
                         <td>${qty}</td>
-                        <td>₹${totalPrice}</td>
+
                     </tr>
                     `
-            finalPrice += price * qty
-            $(".total").html('₹ ' + finalPrice);
+
         };
         table = table + `
     <tr><td><button class="btn btn-danger" onclick="clearcart()" id="clearCart">Clear Cart</button> </td></tr>
@@ -167,8 +149,8 @@
     function updatecart(cart) {
         localStorage.setItem('cart', JSON.stringify(cart));
     }
-    $('#itemsJson').val(JSON.stringify(cart));
-    $(".price").val(finalPrice);
+    $('#items').val(JSON.stringify(cart));
+ ;
 
     {% if thank %}
     alert('Thanks for ordering from us.');
@@ -178,4 +160,3 @@
 </script>
 
 </html>
-{% endblock content %}

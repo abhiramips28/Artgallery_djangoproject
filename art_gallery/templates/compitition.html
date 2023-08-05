@@ -8,10 +8,28 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <style>
+      body{
+        background-color: lightblue;
+      }
+      h1 {
+         font-size: 60px;
+         color: black;
+         text-shadow: 2px 2px white;
+      }
+      h3{
+         color: Blue;
+         text-align: bold;
+      }
+    </style>
 </head>
 <body>
-<h1>tell us what artworks would you like to do?</h1>
-    {%for c in Compitition %}
+<br>
+<h1>Tell us what artworks would you like to do?</h1>
+<br>
+<br>
+<br>
+    {% for c in compitition %}
     <h3><a href="{% url 'artwork' c.id %}"> {{c.artwork}}</a></h3>
 
 

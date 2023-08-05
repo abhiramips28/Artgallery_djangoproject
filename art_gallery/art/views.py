@@ -2,7 +2,9 @@ from decimal import Decimal
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.decorators import login_required
+
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.db.models import Q
 from django.contrib.auth.models import User
@@ -71,20 +73,20 @@ def Adminsignup(request):
 
             if len(username) > 15:
                 messages.info(request, "Username must be under 15 characters.")
-                return redirect('/admin_signup')
+                return redirect('/artist_signup')
             if not username.isalnum():
                 messages.info(request, "Username must contain only letters and numbers.")
-                return redirect('/admin_signup')
+                return redirect('/artist_signup')
             if password1 != password2:
                 messages.info(request, "Passwords do not match.")
-                return redirect('/admin_signup')
+                return redirect('/artist_signup')
 
             admin = Admin.objects.create_user(username, email_id, password1)
             admin.name = name
 
             admin.save()
-            return render(request, 'adminlogin.html')
-    return render(request, "admin_signup.html")
+            return render(request, 'artist_login.html')
+    return render(request, "artist_signup.html")
 
 def Adminlogin(request):
     if request.user.is_authenticated:
@@ -99,17 +101,17 @@ def Adminlogin(request):
             if user is not None:
                 login(request, user)
                 messages.success(request, "Successfully Logged In")
-                return redirect("/admin_home")
+                return redirect("/artist_home")
             else:
                 messages.error(request, "Please provide a valid username and password")
-    return render(request, "adminlogin.html")
+    return render(request, "artist_login.html")
 
 
 def UserHome(request):
     return render(request,'user_nav.html')
 
 def AdminHome(request):
-    return render(request,'admin_home.html')
+    return render(request,'artist_home.html')
 
 class Artcreate(CreateView):
     model = Art
@@ -124,9 +126,9 @@ class SearchResultsView(ListView):
     template_name = 'search.html'
 
     def get_queryset(self):
-        query = self.request.GET.get('q')
+        query = self.request.GET.get('Q')
         return Art.objects.filter(
-            Q(title=query) | Q(artist=query)
+            Q(category=query)
         )
 
 class ArtList(ListView):
@@ -192,7 +194,7 @@ def remove_from_cart(request,art_id):
     cart_qs = Cart.objects.filter(user=request.user)
     if cart_qs.exists():
         cart_obj = cart_qs.first()
-        cart_item_qs = CartItem.objects.filter(arts=Art,cart=cart_obj)
+        cart_item_qs = CartItem.objects.filter(arts=arts,cart=cart_obj)
         if cart_item_qs.exists():
             cart_item = cart_item_qs.first()
             if cart_item.quantity >1:
@@ -249,14 +251,14 @@ def request_arts(request):
 
 def see_requested_arts(request):
     requested_art = Request_Art.objects.all()
-    requested_art_count = requested_art.count()
-    return render(request, "see_requested_arts.html", {'requested_art':requested_art, 'requested_art_count':requested_art_count})
+    requested_arts_count = requested_art.count()
+    return render(request, "see_requested_arts.html", {'requested_art':requested_art, 'requested_arts_count':requested_arts_count})
 
 def delete_requested_arts(request,pk):
     delete_art = Request_Art.objects.get(id=pk)
     if request.method == "POST":
         delete_art.delete()
-        return redirect('/see_requested_books')
+        return redirect('/see_requested_arts')
     return render(request, "delete_requested_arts.html", {'delete_art':delete_art})
 
 def user_list(request):
@@ -264,29 +266,42 @@ def user_list(request):
     user_count = user.count()
     return render(request, "customerlist.html", {'user':user, 'user_count':user_count})
 
-def orders_list(request,pk):
-    user = Order.objects.filter(id=pk)
-    return render(request, "orders.html", {'user':user})
+class OrderListView(LoginRequiredMixin, ListView):
+    model = Order
+    context_object_name = 'orders'
+    template_name = 'orders.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['orders'] = context['orders'].filter(user=self.request.user)
+        return context
 
 def data_view(request,pk):
     orders = Order.objects.get(id=pk)
     return JsonResponse(request, {'data':orders.items_json})
 
 
-def checkout(request):
+def checkout(request,pk):
+    checkout = Art.objects.get(id=pk)
+
     if request.method=="POST":
         user = request.user
-        items_json = request.POST.get('itemsJson', '')
+        items = request.POST.get('items', '')
         name = request.POST.get('name', '')
-        price = request.POST.get('price', '')
         email = request.POST.get('email', '')
         address = request.POST.get('address', '')
         phone = request.POST.get('phone', '')
-        order = Order(user=user, items_json=items_json, name=name, email=email, address=address, phone=phone, price=price)
+        order = Order(user=user, items=items, name=name, email=email, address=address, phone=phone)
         order.save()
         thank = True
-        return render(request, 'mycart.html', {'thank':thank})
-    return render(request, "mycart.html")
+
+        context ={
+            'checkout': checkout,
+            'thank': thank,
+
+        }
+        return render(request, 'buy.html', context)
+    return render(request, 'checkout.html')
 
 
 class Compititionlist(ListView):
